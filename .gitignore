@@ -1,0 +1,70 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Root directory files/folders to ignore
+# Add any root-level files or directories you want to ignore
+
+# Node.js (Server-side)
+server/node_modules/
+server/.env
+server/package-lock.json
+
+# Angular (Client-side)
+client/node_modules/
+client/dist/
+client/package-lock.json
+client/angular.json
+client/src/environments/
+client/tmp
+client/out-tsc
+client/bazel-out
+
+# Node
+client/node_modules
+client/npm-debug.log
+client/yarn-error.log
+
+# IDEs and editors
+client/.idea/
+client/.project
+client/.classpath
+client/.c9/
+client/*.launch
+client/.settings/
+client/*.sublime-workspace
+
+# Editor folders
+.vscode/
+.idea/
+
+# OS generated
+.DS_Store
+client/.DS_Store
+server/.DS_Store
+Thumbs.db
+client/Thumbs.db
+
+# Log files
+*.log
+
+# Temp files
+*.tmp
+
+# Visual Studio Code
+client/.vscode/*
+!client/.vscode/settings.json
+!client/.vscode/tasks.json
+!client/.vscode/launch.json
+!client/.vscode/extensions.json
+client/.history/*
+
+# Miscellaneous
+client/.angular/cache
+client/.sass-cache/
+client/connect.lock
+client/coverage
+client/libpeerconnection.log
+client/testem.log
+client/typings
+
+# Editor folders for the entire project
+.vscode/
+.idea/
