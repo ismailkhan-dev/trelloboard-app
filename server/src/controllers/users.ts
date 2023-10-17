@@ -15,6 +15,7 @@ const normalizeUser = (user: userDocument) => {
     };
 };
 
+/* Register method */
 export const register = async (
     req: Request,
     res: Response,
@@ -26,8 +27,11 @@ export const register = async (
             username: req.body.username,
             password: req.body.password,
         });
+        console.log(newUser);
 
         const savedUser = await newUser.save();
+        console.log("savedUser", savedUser);
+
         res.send(normalizeUser(savedUser));
     } catch (err) {
         if (err instanceof Error.ValidationError) {
@@ -36,6 +40,37 @@ export const register = async (
             );
             return res.status(422).json(messages);
         }
+        next(err);
+    }
+};
+
+/* Login method */
+export const login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const user = await UserModel.findOne({ email: req.body.email }).select(
+            "+password"
+        );
+        const errors = { emailOrPassword: "incorrect email or password" };
+
+        if (!user) {
+            console.log("no user", errors);
+
+            return res.status(422).json(errors);
+        }
+        console.log("Login successful! User: ", user);
+
+        const isSamePassword = await user.validatePassword(req.body.password);
+
+        if (!isSamePassword) {
+            return res.status(422).json(errors);
+        }
+
+        res.send(normalizeUser(user));
+    } catch (err) {
         next(err);
     }
 };

@@ -12,11 +12,17 @@ const io = new Server(httpServer);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* 
+    Routes
+*/
+
 app.get("/", (req, res) => {
     res.send("API is up and running");
 });
 
 app.post("/api/users", usersController.register);
+
+app.post("/api/users/login", usersController.login);
 
 io.on("connection", () => {
     console.log("connect");
