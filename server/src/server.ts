@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import mongoose from "mongoose";
 import * as usersController from "./controllers/users";
 import bodyParser from "body-parser";
+import authMiddleware from "./middlewares/auth";
 
 const app = express();
 const httpServer = createServer(app);
@@ -15,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* 
     Routes
 */
-
 app.get("/", (req, res) => {
     res.send("API is up and running");
 });
@@ -24,6 +24,11 @@ app.post("/api/users", usersController.register);
 
 app.post("/api/users/login", usersController.login);
 
+app.get("/api/user", authMiddleware, usersController.currentUser);
+
+/* 
+    Websocket.io
+*/
 io.on("connection", () => {
     console.log("connect");
 });
