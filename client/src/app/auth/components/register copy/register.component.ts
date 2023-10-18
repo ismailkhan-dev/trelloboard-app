@@ -3,25 +3,20 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'auth-register',
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  errorMessage: string | null = null;
+  error: string | null = null;
   form = this.fb.group({
     email: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   onSubmit(): void {
     this.authService
@@ -31,12 +26,10 @@ export class RegisterComponent {
           console.log('currentUser', currentUser);
           this.authService.setToken(currentUser);
           this.authService.setCurrentUser(currentUser);
-          this.errorMessage = null;
-          this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {
           console.log('err', err.error);
-          this.errorMessage = err.error.join(', ');
+          this.error = err.error.join(', ');
         },
       });
   }
