@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './components/register/register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './services/authGuard.service';
 
 const routes: Routes = [
   {
@@ -14,12 +15,13 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    // canActivate: [() => inject(AuthGuardService).canActivate()],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes), ReactiveFormsModule, CommonModule],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuardService],
   declarations: [RegisterComponent, LoginComponent],
 })
 export class AuthModule {}
