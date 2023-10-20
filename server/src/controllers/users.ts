@@ -4,7 +4,7 @@ import { userDocument } from "../types/user.interface";
 import { Error } from "mongoose";
 import jwt from "jsonwebtoken";
 import { secret } from "../config";
-import { expressRequestInterface } from "../types/expressRequest.interface";
+import { ExpressRequestInterface } from "../types/expressRequest.interface";
 
 const normalizeUser = (user: userDocument) => {
     const token = jwt.sign({ id: user, email: user.email }, secret);
@@ -28,7 +28,7 @@ export const register = async (
             username: req.body.username,
             password: req.body.password,
         });
-        console.log(newUser);
+        console.log("newUser", newUser);
 
         const savedUser = await newUser.save();
         console.log("savedUser", savedUser);
@@ -76,7 +76,7 @@ export const login = async (
     }
 };
 
-export const currentUser = (req: expressRequestInterface, res: Response) => {
+export const currentUser = (req: ExpressRequestInterface, res: Response) => {
     if (!req.user) {
         return res.sendStatus(401);
     }

@@ -2,10 +2,10 @@ import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import { secret } from "../config";
 import UserModel from "../models/user";
-import { expressRequestInterface } from "../types/expressRequest.interface";
+import { ExpressRequestInterface } from "../types/expressRequest.interface";
 
 export default async (
-    req: expressRequestInterface,
+    req: ExpressRequestInterface,
     res: Response,
     next: NextFunction
 ) => {
