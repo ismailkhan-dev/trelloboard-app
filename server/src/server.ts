@@ -29,14 +29,11 @@ mongoose.set("toJSON", {
 app.get("/", (req, res) => {
     res.send("API is up and running");
 });
-
 app.post("/api/users", usersController.register);
-
 app.post("/api/users/login", usersController.login);
-
 app.get("/api/user", authMiddleware, usersController.currentUser);
-
 app.get("/api/boards", authMiddleware, boardsController.getBoards);
+app.post("/api/boards", authMiddleware, boardsController.createBoard);
 
 /* 
     Websocket.io

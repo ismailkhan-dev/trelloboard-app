@@ -22,7 +22,7 @@ export class InlineFormComponent {
 
   constructor(private fb: FormBuilder) {}
 
-  activateEditing(): void {
+  activeEditing(): void {
     if (this.title) {
       this.form.patchValue({ title: this.title });
     }
