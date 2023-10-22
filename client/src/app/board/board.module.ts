@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from '../auth/services/authGuard.service';
 import { BoardComponent } from './components/board/board.component';
+import { BoardService } from './services/board.service';
 
 const routes: Routes = [
   {
@@ -16,6 +17,6 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [],
   declarations: [BoardComponent],
-  providers: [],
+  providers: [BoardService],
 })
 export class BoardModule {}
