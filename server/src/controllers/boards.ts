@@ -1,6 +1,7 @@
 import { Response, NextFunction } from "express";
 import BoardModel from "../models/board";
 import { ExpressRequestInterface } from "../types/expressRequest.interface";
+import { Server, Socket } from "socket.io";
 
 export const getBoards = async (
     req: ExpressRequestInterface,
@@ -32,7 +33,7 @@ export const getBoard = async (
         }
 
         const board = await BoardModel.findById(req.params.boardId);
-        console.log("get single board", board);
+        // console.log("get single board", board);
 
         res.send(board);
     } catch (err) {
@@ -63,4 +64,22 @@ export const createBoard = async (
     } catch (err) {
         next(err);
     }
+};
+
+export const joinBoard = (
+    io: Server,
+    socket: Socket,
+    data: { boardId: string }
+) => {
+    console.log("joinBoard server socket.io join", data.boardId);
+    socket.join(data.boardId);
+};
+
+export const leaveBoard = (
+    io: Server,
+    socket: Socket,
+    data: { boardId: string }
+) => {
+    console.log("leaveBoard server socket.io leave", data.boardId);
+    socket.leave(data.boardId);
 };
