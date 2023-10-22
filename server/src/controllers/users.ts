@@ -7,11 +7,11 @@ import { secret } from "../config";
 import { ExpressRequestInterface } from "../types/expressRequest.interface";
 
 const normalizeUser = (user: userDocument) => {
-    const token = jwt.sign({ id: user, email: user.email }, secret);
+    const token = jwt.sign({ id: user.id, email: user.email }, secret);
     return {
         email: user.email,
         username: user.username,
-        id: user._id,
+        id: user.id,
         token: `Bearer ${token}`,
     };
 };
