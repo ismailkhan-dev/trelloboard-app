@@ -76,6 +76,7 @@ io.use(async (socket: Socket, next) => {
     }
 }).on("connection", (socket) => {
     console.log("socket.io initialization connection successful");
+
     socket.on(SocketEventsEnum.boardsJoin, (data) => {
         boardsController.joinBoard(io, socket, data);
     });
@@ -83,15 +84,28 @@ io.use(async (socket: Socket, next) => {
     socket.on(SocketEventsEnum.boardsLeave, (data) => {
         boardsController.leaveBoard(io, socket, data);
     });
+
+    socket.on(SocketEventsEnum.columnsCreate, (data) => {
+        columnsController.createColumn(io, socket, data);
+    });
 });
 
 /* 
     Database
 */
-mongoose.connect("mongodb://localhost:27017/trelloboardapp").then(() => {
-    console.log("Connected to MongoDB");
+mongoose
+    .connect("mongodb://localhost:27017/trelloboardapp")
+    .then(() => {
+        let port = 4001;
+        console.log("Connected to MongoDB - trelloboardapp on port 27017");
 
-    httpServer.listen(4001, () => {
-        console.log("API is running on port 4001");
+        httpServer.listen(port, () => {
+            console.log(`API is running on port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error(
+            "Failed to connect to MongoDB. Please check that the Docker DB container is running."
+        );
+        console.error(err.message);
     });
-});
