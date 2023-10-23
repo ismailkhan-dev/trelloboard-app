@@ -7,6 +7,7 @@ import { BoardService } from './services/board.service';
 import { ColumnsService } from '../shared/services/columns.service';
 import { TopbarModule } from '../shared/modules/topbar/topbar.module';
 import { InlineFormModule } from '../shared/modules/inlineForm/inlineForm.module';
+import { TasksService } from '../shared/services/tasks.service';
 
 const routes: Routes = [
   {
@@ -25,6 +26,6 @@ const routes: Routes = [
   ],
   exports: [],
   declarations: [BoardComponent],
-  providers: [BoardService, ColumnsService],
+  providers: [BoardService, ColumnsService, TasksService],
 })
 export class BoardModule {}
