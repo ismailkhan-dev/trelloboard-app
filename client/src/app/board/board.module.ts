@@ -6,6 +6,7 @@ import { BoardComponent } from './components/board/board.component';
 import { BoardService } from './services/board.service';
 import { ColumnsService } from '../shared/services/columns.service';
 import { TopbarModule } from '../shared/modules/topbar/topbar.module';
+import { InlineFormModule } from '../shared/modules/inlineForm/inlineForm.module';
 
 const routes: Routes = [
   {
@@ -16,7 +17,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes), TopbarModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    TopbarModule,
+    InlineFormModule,
+  ],
   exports: [],
   declarations: [BoardComponent],
   providers: [BoardService, ColumnsService],

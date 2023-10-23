@@ -30,7 +30,7 @@ export class RegisterComponent {
       .register(this.form.value as RegisterRequestInterface)
       .subscribe({
         next: (currentUser) => {
-          console.log('currentUser', currentUser);
+          // console.log('currentUser', currentUser);
           this.authService.setToken(currentUser);
           this.socketService.setupSocketConnection(currentUser);
           this.authService.setCurrentUser(currentUser);
