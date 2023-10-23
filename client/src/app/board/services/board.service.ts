@@ -49,4 +49,11 @@ export class BoardService {
     }
     this.board$.next({ ...board, title: updatedBoard.title });
   }
+
+  deleteColumn(columnId: string): void {
+    const updatedColumns = this.column$
+      .getValue()
+      .filter((column) => column.id !== columnId);
+    this.column$.next(updatedColumns);
+  }
 }
