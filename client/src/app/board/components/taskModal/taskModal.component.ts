@@ -12,6 +12,7 @@ import {
 import { TaskInterface } from 'src/app/shared/types/task.interface';
 import { FormBuilder } from '@angular/forms';
 import { ColumnInterface } from 'src/app/shared/types/column.interface';
+import { TasksService } from 'src/app/shared/services/tasks.service';
 
 @Component({
   selector: 'task-modal',
@@ -32,6 +33,7 @@ export class TaskModalComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private tasksService: TasksService,
     private boardService: BoardService,
     private fb: FormBuilder
   ) {
@@ -64,6 +66,14 @@ export class TaskModalComponent implements OnDestroy {
     this.task$.pipe(takeUntil(this.unsubscribe$)).subscribe((task) => {
       this.columnForm.patchValue({ columnId: task.columnId });
     });
+
+    combineLatest([this.task$, this.columnForm.get('columnId')!.valueChanges])
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(([task, columnId]) => {
+        if (task.columnId !== columnId) {
+          this.tasksService.updateTask(this.boardId, task.id, { columnId });
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -76,10 +86,14 @@ export class TaskModalComponent implements OnDestroy {
   }
 
   updateTaskName(taskName: string): void {
-    console.log('updateTaskName', taskName);
+    this.tasksService.updateTask(this.boardId, this.taskId, {
+      title: taskName,
+    });
   }
 
   updateTaskDescription(taskDesctiption: string): void {
-    console.log('updateTaskDescription', taskDesctiption);
+    this.tasksService.updateTask(this.boardId, this.taskId, {
+      description: taskDesctiption,
+    });
   }
 }
