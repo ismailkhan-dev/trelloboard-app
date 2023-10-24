@@ -30,7 +30,6 @@ export class RegisterComponent {
       .register(this.form.value as RegisterRequestInterface)
       .subscribe({
         next: (currentUser) => {
-          // console.log('currentUser', currentUser);
           this.authService.setToken(currentUser);
           this.socketService.setupSocketConnection(currentUser);
           this.authService.setCurrentUser(currentUser);
@@ -38,7 +37,7 @@ export class RegisterComponent {
           this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {
-          console.log('err', err.error);
+          console.error('err', err.error);
           this.errorMessage = err.error.join(', ');
         },
       });
