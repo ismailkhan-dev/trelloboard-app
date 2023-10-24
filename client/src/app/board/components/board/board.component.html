@@ -13,8 +13,13 @@
   <div class="columns">
     <div class="column" *ngFor="let column of data.columns">
       <div class="column-title">
-        {{ column.title
-        }}<img
+        <inline-form
+          class="edit-column-form"
+          [defaultText]="column.title"
+          [title]="column.title"
+          (handleSubmit)="updateColumnName($event, column.id)"
+        ></inline-form>
+        <img
           class="column-delete-icon"
           src="/assets/close_icon.svg"
           alt="close icon"

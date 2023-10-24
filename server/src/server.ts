@@ -106,6 +106,10 @@ io.use(async (socket: Socket, next) => {
     socket.on(SocketEventsEnum.columnsDelete, (data) => {
         columnsController.deleteColumn(io, socket, data);
     });
+
+    socket.on(SocketEventsEnum.columnsUpdate, (data) => {
+        columnsController.updateColumn(io, socket, data);
+    });
 });
 
 /* 
