@@ -9,6 +9,7 @@ import { TopbarModule } from '../shared/modules/topbar/topbar.module';
 import { InlineFormModule } from '../shared/modules/inlineForm/inlineForm.module';
 import { TasksService } from '../shared/services/tasks.service';
 import { TaskModalComponent } from './components/taskModal/taskModal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TopbarModule,
     InlineFormModule,
+    ReactiveFormsModule,
   ],
   exports: [],
   declarations: [BoardComponent, TaskModalComponent],

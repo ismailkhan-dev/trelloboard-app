@@ -9,7 +9,7 @@ import { TaskInterface } from 'src/app/shared/types/task.interface';
 @Injectable()
 export class BoardService {
   board$ = new BehaviorSubject<BoardInterface | null>(null);
-  column$ = new BehaviorSubject<ColumnInterface[]>([]);
+  columns$ = new BehaviorSubject<ColumnInterface[]>([]);
   tasks$ = new BehaviorSubject<TaskInterface[]>([]);
 
   constructor(private socketService: SocketService) {}
@@ -19,7 +19,7 @@ export class BoardService {
   }
 
   setColumns(columns: ColumnInterface[]): void {
-    this.column$.next(columns);
+    this.columns$.next(columns);
   }
 
   setTasks(tasks: TaskInterface[]): void {
@@ -33,8 +33,8 @@ export class BoardService {
   }
 
   addColumn(column: ColumnInterface): void {
-    const updatedColumns = [...this.column$.getValue(), column];
-    this.column$.next(updatedColumns);
+    const updatedColumns = [...this.columns$.getValue(), column];
+    this.columns$.next(updatedColumns);
   }
 
   addTask(task: TaskInterface): void {
@@ -51,19 +51,19 @@ export class BoardService {
   }
 
   updateColumn(updatedColumn: ColumnInterface): void {
-    const updatedColumns = this.column$.getValue().map((column) => {
+    const updatedColumns = this.columns$.getValue().map((column) => {
       if (column.id === updatedColumn.id) {
         return { ...column, title: updatedColumn.title };
       }
       return column;
     });
-    this.column$.next(updatedColumns);
+    this.columns$.next(updatedColumns);
   }
 
   deleteColumn(columnId: string): void {
-    const updatedColumns = this.column$
+    const updatedColumns = this.columns$
       .getValue()
       .filter((column) => column.id !== columnId);
-    this.column$.next(updatedColumns);
+    this.columns$.next(updatedColumns);
   }
 }

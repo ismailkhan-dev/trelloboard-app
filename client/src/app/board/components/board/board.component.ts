@@ -51,7 +51,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.boardId = boardId;
     this.data$ = combineLatest([
       this.boardService.board$.pipe(filter(Boolean)),
-      this.boardService.column$,
+      this.boardService.columns$,
       this.boardService.tasks$,
     ]).pipe(map(([board, columns, tasks]) => ({ board, columns, tasks })));
   }
